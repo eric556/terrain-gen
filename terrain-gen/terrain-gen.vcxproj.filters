@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{3f5fa3dd-c82c-4891-982a-157d5e7c6f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Buffers">
+      <UniqueIdentifier>{d7086a81-065f-4c21-9b7a-b7cff9785294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Buffers\Index Buffer">
+      <UniqueIdentifier>{a62bee7a-d37c-41df-9eba-827f7b96fd95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Buffers\Vertex Buffer">
+      <UniqueIdentifier>{fb4ce0cd-1988-4e6d-af98-8d3d147f9e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Buffers\Vertex Array">
+      <UniqueIdentifier>{8b15aff3-d913-4b58-a52d-8f9dac25d0c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Util">
+      <UniqueIdentifier>{4029c355-5ddc-4d88-a5e9-998287649448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Material">
+      <UniqueIdentifier>{d9313f70-1c09-4f87-bfa3-3ce36c5ce477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Mesh">
+      <UniqueIdentifier>{86eee7ec-3469-481c-93a3-6eba2bfbbb38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Renderer">
+      <UniqueIdentifier>{29fd92ff-013a-4867-828a-3bf8841fb27a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Shaders">
+      <UniqueIdentifier>{92ae5c07-7449-40c8-99d8-d69a1912b4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Camera">
+      <UniqueIdentifier>{89e042a5-00cd-493a-8dcd-0e191250c5e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\FastNoise">
+      <UniqueIdentifier>{373ffd06-dca0-464e-b79a-23ee99cc81de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\ImGUI">
+      <UniqueIdentifier>{f99bad98-2629-4c6e-bb66-268909e8ddd7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Source Files\Graphics\Buffers\Index Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Source Files\Graphics\Buffers\Vertex Array</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Source Files\Graphics\Buffers\Vertex Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\Graphics\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLibrary.cpp">
+      <Filter>Source Files\Graphics\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Graphics\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FastNoise.cpp">
+      <Filter>Source Files\Graphics\FastNoise</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-SFML.cpp">
+      <Filter>Source Files\Graphics\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Source Files\Graphics\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Source Files\Graphics\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Source Files\Graphics\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Source Files\Graphics\ImGUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Buffer.h">
+      <Filter>Source Files\Graphics\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Source Files\Graphics\Buffers\Index Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Source Files\Graphics\Buffers\Vertex Array</Filter>
+    </ClInclude>
+    <ClInclude Include="GLUtil.h">
+      <Filter>Source Files\Graphics\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferLayout.h">
+      <Filter>Source Files\Graphics\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Source Files\Graphics\Buffers\Vertex Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Source Files\Graphics\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLibrary.h">
+      <Filter>Source Files\Graphics\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Source Files\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Files\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Source Files\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FastNoise.h">
+      <Filter>Source Files\Graphics\FastNoise</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\basic.shader">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </None>
+    <None Include="res\heightMap.shader">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
