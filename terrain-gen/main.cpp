@@ -16,6 +16,18 @@ const unsigned int X_SEGMENTS = 64;
 const unsigned int Y_SEGMENTS = 64;
 const float PI = 3.14159265359;
 
+void resetChunks(std::vector<Chunk*>& chunks, Material* mat, int chunkSize, sf::Vector2i xBounds, sf::Vector2i yBounds) {
+	for (int i = 0; i < chunks.size(); i++) {
+		delete chunks[i];
+	}
+	chunks.clear();
+	for (int y = yBounds.x; y < yBounds.y; y++) {
+		for (int x = xBounds.x; x < xBounds.y; x++) {
+			chunks.push_back(new Chunk(sf::Vector2f(x * chunkSize, y * chunkSize), chunkSize, mat));
+		}
+	}
+}
+
 
 int main()
 {
@@ -50,6 +62,7 @@ int main()
 	int noiseType = 0;
 	int drawType = 0;
 	int chunkSize = 32;
+	bool updateChunks = false;
 	sf::Vector2i gridX(-3, 3);
 	sf::Vector2i gridY(-3, 3);
 	
@@ -128,6 +141,12 @@ int main()
 		}	
 	
 		window.pushGLStates();
+		if (updateChunks) 
+		{
+			resetChunks(chunks, testMat, chunkSize, gridX, gridY);
+			updateChunks = false;
+		}
+
 		testMat->SetUniform("view", cam.GetViewMatrix());
 
 		for (Chunk* chunk : chunks) {
@@ -144,12 +163,17 @@ int main()
 		ImGui::Begin("Terrain Options");
 		if (ImGui::CollapsingHeader("Chunk Options")) {
 			ImGui::PushItemWidth(100);
-			ImGui::InputInt("X Min", &gridX.x);
+			if (ImGui::InputInt("X Min", &gridX.x))
+				updateChunks = true;
 			ImGui::SameLine();
-			ImGui::InputInt("X Max", &gridX.y);
-			ImGui::InputInt("Y Min", &gridY.x);
+			if (ImGui::InputInt("X Max", &gridX.y))
+				updateChunks = true;
+			if (ImGui::InputInt("Y Min", &gridY.x))
+				updateChunks = true;
 			ImGui::SameLine();
-			ImGui::InputInt("Y Max", &gridY.y);
+			if (ImGui::InputInt("Y Max", &gridY.y))
+				updateChunks = true;
+
 			ImGui::PopItemWidth();
 		}
 		

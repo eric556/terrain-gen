@@ -46,7 +46,7 @@ void Chunk::Update(int seed, int noiseType, float amplitude)
 				double z = noise.GetNoise(x + position.x, y + position.y);
 				verts.push_back({
 					glm::vec3(x + position.x, z * amplitude, y + position.y),
-					glm::vec3(x + position.x, z, y + position.y)
+					glm::vec3(x + position.x, z * amplitude, y + position.y)
 					});
 			}
 		}
