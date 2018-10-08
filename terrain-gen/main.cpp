@@ -10,6 +10,7 @@
 #include "MaterialLibrary.h"
 #include "Camera.h"
 #include "FastNoise.h"
+#include "Chunk.h"
 
 const unsigned int X_SEGMENTS = 64;
 const unsigned int Y_SEGMENTS = 64;
@@ -44,32 +45,25 @@ int main()
 	modelMat = glm::translate(modelMat, glm::vec3(-5, -5, -30));
 	modelMat = glm::scale(modelMat, glm::vec3(0.1, 0.1, 0.1));
 	
-	std::vector<Vertex> terrainVerts;
-	std::vector<unsigned int> terrainIndicies;
-	FastNoise noise;
-	noise.SetNoiseType(static_cast<FastNoise::NoiseType>(3)); // Set the desired noise type
-	
-	
-	unsigned int iteration = 0;
-	for (int y = 0; y < 128; y++) {
-		for (int x = 0; x < 128; x++){
-			terrainVerts.push_back({
-				glm::vec3(x, 0, y),
-				glm::vec3(x, 0, y)
-			});
-
-			terrainIndicies.push_back(iteration);
-			iteration++;
-		}
-	}
+	int seed = 0;
+	float amplitude = 0.f;
+	int noiseType = 0;
+	int drawType = 0;
+	int chunkSize = 32;
 	
 	window.pushGLStates();
-	Mesh* mesh = new Mesh(terrainVerts, terrainIndicies);
+	std::vector<Chunk*> chunks;
+	//Chunk* chunk = new Chunk(sf::Vector2f(0, 0) ,chunkSize, testMat);
+	//Chunk* chunk1 = new Chunk(sf::Vector2f(0, 128), chunkSize, testMat);
+	for (int y = -3; y < 3; y++) {
+		for (int x = -3; x < 3; x++) {
+			chunks.push_back(new Chunk(sf::Vector2f(x * chunkSize, y * chunkSize), chunkSize, testMat));
+		}
+	}
 	testMat->SetUniform("view", cam.GetViewMatrix());
 	testMat->SetUniform("model", modelMat);
 	testMat->SetUniform("projection", projection);
 	window.popGLStates();
-	
 	
 	float lastX = 0;
 	float lastY = 0;
@@ -78,11 +72,6 @@ int main()
 	sf::Clock clock;
 	bool running = true;
 	float totalTime = 0;
-
-	int seed = 0;
-	float amplitude = 0.f;
-	int noiseType = 0;
-
 
 	while (running)
 	{
@@ -138,34 +127,30 @@ int main()
 			lastY = sf::Mouse::getPosition(window).y;
 		}	
 	
-		noise.SetNoiseType(static_cast<FastNoise::NoiseType>(noiseType));
-		noise.SetSeed(seed);
-		terrainVerts.clear();
-		terrainIndicies.clear();
-		unsigned int iteration = 0;
-		for (int y = 0; y < 128; y++) {
-			for (int x = 0; x < 128; x++) {
-				double z = noise.GetNoise(x, y);
-				terrainVerts.push_back({
-					glm::vec3(x, z * amplitude, y),
-					glm::vec3(x, z, y)
-				});
-			}
-		}
-	
 		window.pushGLStates();
 		testMat->SetUniform("view", cam.GetViewMatrix());
-		mesh->VBO->SetData(terrainVerts.data(), terrainVerts.size() * sizeof(Vertex));
+		//chunk->Update(seed, noiseType, chunkSize, amplitude);
+		//chunk1->Update(seed, noiseType, chunkSize, amplitude);
+
+		for (Chunk* chunk : chunks) {
+			chunk->Update(seed, noiseType, chunkSize, amplitude);
+		}
+
 		Renderer::Clear(sf::Vector3f(0.1f,0.1f,0.1f));
-		Renderer::Draw(mesh, testMat, GL_POINTS);
+		//Renderer::Draw(chunk->getMesh(), chunk->getMat(), drawType);
+		//Renderer::Draw(chunk1->getMesh(), chunk1->getMat(), drawType);
+		for (Chunk* chunk : chunks) {
+			Renderer::Draw(chunk->getMesh(), chunk->getMat(), drawType);
+		}
 		window.popGLStates();
-	
 
 		ImGui::SFML::Update(window, dTime);
 		ImGui::Begin("Terrain Options");
 		ImGui::InputInt("Seed", &seed);
+		ImGui::InputInt("Chunk Size", &chunkSize);
 		ImGui::SliderFloat("Amplitude", &amplitude, 0.0f, 200.0f);
 		ImGui::Combo("Noise Type", &noiseType, "Value\0Value Fractal\0Perlin\0Perlin Fractal\0Simplex\0Simplex Fractal\0Cellular\0White Noise\0Cubic\0Cubic Fractal");
+		ImGui::Combo("Draw Type", &drawType, "GL_POINTS\0GL_LINES\0GL_LINE_STRIP\0GL_TRIANGLES");
 		ImGui::End();
 		ImGui::SFML::Render(window);
 

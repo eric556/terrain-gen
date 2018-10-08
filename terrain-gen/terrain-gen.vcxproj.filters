@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Graphics\ImGUI">
       <UniqueIdentifier>{f99bad98-2629-4c6e-bb66-268909e8ddd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Terrain">
+      <UniqueIdentifier>{de76410b-e2f9-4d54-b1ed-815db7593526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Terrain\Chunk">
+      <UniqueIdentifier>{646bdb3d-d00f-458c-8b30-4cdd83f52e1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,6 +105,9 @@
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>Source Files\Graphics\ImGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Source Files\Terrain\Chunk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h">
@@ -136,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="FastNoise.h">
       <Filter>Source Files\Graphics\FastNoise</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>Source Files\Terrain\Chunk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,11 @@ public:
 		VBO = new VertexBuffer(nullptr, 0);
 		IBO = new IndexBuffer(nullptr, 0);
 	};
+
+	~Mesh() {
+		delete IBO;
+		delete VBO;
+	}
 protected:
 	std::vector<Vertex> m_Verticies;
 	std::vector<unsigned int> m_Indicies;

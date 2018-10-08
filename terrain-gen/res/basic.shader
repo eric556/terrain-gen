@@ -27,5 +27,5 @@ in vec3 FragPos;
 in vec3 Normal;
 
 void main() {
-	FragColor = vec4(normalize(Normal), 1.0);
+	FragColor = vec4(abs(normalize(Normal)), 1.0);
 }
