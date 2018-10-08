@@ -50,13 +50,13 @@ int main()
 	int noiseType = 0;
 	int drawType = 0;
 	int chunkSize = 32;
+	sf::Vector2i gridX(-3, 3);
+	sf::Vector2i gridY(-3, 3);
 	
 	window.pushGLStates();
 	std::vector<Chunk*> chunks;
-	//Chunk* chunk = new Chunk(sf::Vector2f(0, 0) ,chunkSize, testMat);
-	//Chunk* chunk1 = new Chunk(sf::Vector2f(0, 128), chunkSize, testMat);
-	for (int y = -3; y < 3; y++) {
-		for (int x = -3; x < 3; x++) {
+	for (int y = gridY.x; y < gridY.y; y++) {
+		for (int x = gridX.x; x < gridX.y; x++) {
 			chunks.push_back(new Chunk(sf::Vector2f(x * chunkSize, y * chunkSize), chunkSize, testMat));
 		}
 	}
@@ -129,16 +129,12 @@ int main()
 	
 		window.pushGLStates();
 		testMat->SetUniform("view", cam.GetViewMatrix());
-		//chunk->Update(seed, noiseType, chunkSize, amplitude);
-		//chunk1->Update(seed, noiseType, chunkSize, amplitude);
 
 		for (Chunk* chunk : chunks) {
-			chunk->Update(seed, noiseType, chunkSize, amplitude);
+			chunk->Update(seed, noiseType, amplitude);
 		}
 
 		Renderer::Clear(sf::Vector3f(0.1f,0.1f,0.1f));
-		//Renderer::Draw(chunk->getMesh(), chunk->getMat(), drawType);
-		//Renderer::Draw(chunk1->getMesh(), chunk1->getMat(), drawType);
 		for (Chunk* chunk : chunks) {
 			Renderer::Draw(chunk->getMesh(), chunk->getMat(), drawType);
 		}
@@ -147,7 +143,14 @@ int main()
 		ImGui::SFML::Update(window, dTime);
 		ImGui::Begin("Terrain Options");
 		ImGui::InputInt("Seed", &seed);
-		ImGui::InputInt("Chunk Size", &chunkSize);
+		ImGui::PushItemWidth(100);
+		ImGui::InputInt("X Min", &gridX.x);
+		ImGui::SameLine();
+		ImGui::InputInt("X Max", &gridX.y);
+		ImGui::InputInt("Y Min", &gridY.x);
+		ImGui::SameLine();
+		ImGui::InputInt("Y Max", &gridY.y);
+		ImGui::PopItemWidth();
 		ImGui::SliderFloat("Amplitude", &amplitude, 0.0f, 200.0f);
 		ImGui::Combo("Noise Type", &noiseType, "Value\0Value Fractal\0Perlin\0Perlin Fractal\0Simplex\0Simplex Fractal\0Cellular\0White Noise\0Cubic\0Cubic Fractal");
 		ImGui::Combo("Draw Type", &drawType, "GL_POINTS\0GL_LINES\0GL_LINE_STRIP\0GL_TRIANGLES");
