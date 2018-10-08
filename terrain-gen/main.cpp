@@ -142,18 +142,26 @@ int main()
 
 		ImGui::SFML::Update(window, dTime);
 		ImGui::Begin("Terrain Options");
-		ImGui::InputInt("Seed", &seed);
-		ImGui::PushItemWidth(100);
-		ImGui::InputInt("X Min", &gridX.x);
-		ImGui::SameLine();
-		ImGui::InputInt("X Max", &gridX.y);
-		ImGui::InputInt("Y Min", &gridY.x);
-		ImGui::SameLine();
-		ImGui::InputInt("Y Max", &gridY.y);
-		ImGui::PopItemWidth();
-		ImGui::SliderFloat("Amplitude", &amplitude, 0.0f, 200.0f);
-		ImGui::Combo("Noise Type", &noiseType, "Value\0Value Fractal\0Perlin\0Perlin Fractal\0Simplex\0Simplex Fractal\0Cellular\0White Noise\0Cubic\0Cubic Fractal");
-		ImGui::Combo("Draw Type", &drawType, "GL_POINTS\0GL_LINES\0GL_LINE_STRIP\0GL_TRIANGLES");
+		if (ImGui::CollapsingHeader("Chunk Options")) {
+			ImGui::PushItemWidth(100);
+			ImGui::InputInt("X Min", &gridX.x);
+			ImGui::SameLine();
+			ImGui::InputInt("X Max", &gridX.y);
+			ImGui::InputInt("Y Min", &gridY.x);
+			ImGui::SameLine();
+			ImGui::InputInt("Y Max", &gridY.y);
+			ImGui::PopItemWidth();
+		}
+		
+		if (ImGui::CollapsingHeader("Noise Options")) {
+			ImGui::InputInt("Seed", &seed);
+			ImGui::SliderFloat("Amplitude", &amplitude, 0.0f, 200.0f);
+			ImGui::Combo("Noise Type", &noiseType, "Value\0Value Fractal\0Perlin\0Perlin Fractal\0Simplex\0Simplex Fractal\0Cellular\0White Noise\0Cubic\0Cubic Fractal");
+		}
+
+		if (ImGui::CollapsingHeader("GL Options")) {
+			ImGui::Combo("Draw Type", &drawType, "GL_POINTS\0GL_LINES\0GL_LINE_STRIP\0GL_TRIANGLES");
+		}
 		ImGui::End();
 		ImGui::SFML::Render(window);
 
