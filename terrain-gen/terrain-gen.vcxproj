@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Chunk.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="FastNoise.cpp" />
     <ClCompile Include="imgui-SFML.cpp" />
     <ClCompile Include="imgui.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="BufferLayout.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Chunk.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="FastNoise.h" />
     <ClInclude Include="GLUtil.h" />
     <ClInclude Include="IndexBuffer.h" />
@@ -155,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\basic.shader" />
+    <None Include="res\cube.shader" />
     <None Include="res\heightMap.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

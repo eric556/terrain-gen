@@ -58,6 +58,9 @@
     <Filter Include="Source Files\Terrain\Chunk">
       <UniqueIdentifier>{646bdb3d-d00f-458c-8b30-4cdd83f52e1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Terrain\Cube">
+      <UniqueIdentifier>{172975e8-c071-4916-99fe-99f3ca9dcb1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -108,6 +111,9 @@
     <ClCompile Include="Chunk.cpp">
       <Filter>Source Files\Terrain\Chunk</Filter>
     </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Terrain\Cube</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h">
@@ -149,12 +155,18 @@
     <ClInclude Include="Chunk.h">
       <Filter>Source Files\Terrain\Chunk</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Source Files\Terrain\Cube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\basic.shader">
       <Filter>Source Files\Graphics\Shaders</Filter>
     </None>
     <None Include="res\heightMap.shader">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </None>
+    <None Include="res\cube.shader">
       <Filter>Source Files\Graphics\Shaders</Filter>
     </None>
   </ItemGroup>

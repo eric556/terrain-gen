@@ -11,10 +11,7 @@
 #include "Camera.h"
 #include "FastNoise.h"
 #include "Chunk.h"
-
-const unsigned int X_SEGMENTS = 64;
-const unsigned int Y_SEGMENTS = 64;
-const float PI = 3.14159265359;
+#include "Cube.h"
 
 void resetChunks(std::vector<Chunk*>& chunks, Material* mat, int chunkSize, sf::Vector2i xBounds, sf::Vector2i yBounds) {
 	for (int i = 0; i < chunks.size(); i++) {
@@ -23,7 +20,7 @@ void resetChunks(std::vector<Chunk*>& chunks, Material* mat, int chunkSize, sf::
 	chunks.clear();
 	for (int y = yBounds.x; y < yBounds.y; y++) {
 		for (int x = xBounds.x; x < xBounds.y; x++) {
-			chunks.push_back(new Chunk(sf::Vector2f(x * chunkSize, y * chunkSize), chunkSize, mat));
+			chunks.push_back(new Chunk(sf::Vector2i(x * chunkSize, y * chunkSize), chunkSize, mat));
 		}
 	}
 }
@@ -50,12 +47,14 @@ int main()
 	
 	Material* testMat = MaterialLibrary::CreateMaterial("testMat", "res/basic.shader");
 	Camera cam;
+
 	
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), (float)window.getSize().x / (float)window.getSize().y, 0.1f, 100.0f);
 	glm::mat4 modelMat;
-	modelMat = glm::translate(modelMat, glm::vec3(-5, -5, -30));
-	modelMat = glm::scale(modelMat, glm::vec3(0.1, 0.1, 0.1));
+	glm::vec3 scale(1, 1, 1);
+	modelMat = glm::translate(modelMat, glm::vec3(0, 0, 0));
+	modelMat = glm::scale(modelMat, scale);
 	
 	int seed = 0;
 	float amplitude = 0.f;
@@ -70,18 +69,25 @@ int main()
 	std::vector<Chunk*> chunks;
 	for (int y = gridY.x; y < gridY.y; y++) {
 		for (int x = gridX.x; x < gridX.y; x++) {
-			chunks.push_back(new Chunk(sf::Vector2f(x * chunkSize, y * chunkSize), chunkSize, testMat));
+			chunks.push_back(new Chunk(sf::Vector2i(x * chunkSize, y * chunkSize), chunkSize, testMat));
 		}
 	}
 	testMat->SetUniform("view", cam.GetViewMatrix());
 	testMat->SetUniform("model", modelMat);
 	testMat->SetUniform("projection", projection);
+	
+	glm::mat4 modelMat2;
+	glm::vec3 scale2(1, 1, 1);
+	modelMat2 = glm::translate(modelMat2, glm::vec3(0, 0, 0));
+	modelMat2 = glm::scale(modelMat2, scale2);
+
 	window.popGLStates();
 	
 	float lastX = 0;
 	float lastY = 0;
 	float xOffset = 0;
 	float yOffset = 0;
+	bool mouseMove = false;
 	sf::Clock clock;
 	bool running = true;
 	float totalTime = 0;
@@ -124,9 +130,23 @@ int main()
 
 				}
 			}
+			else if (event.type == sf::Event::MouseButtonPressed) 
+			{
+				if (event.mouseButton.button == sf::Mouse::Left) 
+				{
+					mouseMove = true;
+				}
+			}
+			else if (event.type = sf::Event::MouseButtonReleased)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left) 
+				{
+					mouseMove = false;
+				}
+			}
 		}
 	
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (mouseMove)
 		{
 			cam.RotateY((sf::Mouse::getPosition(window).x - lastX) * dt * 10);
 			cam.RotateX(((lastY - sf::Mouse::getPosition(window).y)) * dt * 10);
@@ -148,7 +168,6 @@ int main()
 		}
 
 		testMat->SetUniform("view", cam.GetViewMatrix());
-
 		for (Chunk* chunk : chunks) {
 			chunk->Update(seed, noiseType, amplitude);
 		}
@@ -157,6 +176,7 @@ int main()
 		for (Chunk* chunk : chunks) {
 			Renderer::Draw(chunk->getMesh(), chunk->getMat(), drawType);
 		}
+
 		window.popGLStates();
 
 		ImGui::SFML::Update(window, dTime);
@@ -186,10 +206,28 @@ int main()
 		if (ImGui::CollapsingHeader("GL Options")) {
 			ImGui::Combo("Draw Type", &drawType, "GL_POINTS\0GL_LINES\0GL_LINE_STRIP\0GL_TRIANGLES");
 		}
+
+		if (ImGui::CollapsingHeader("Camera")) {
+			ImGui::PushItemWidth(60);
+			ImGui::InputFloat("X", &cam.GetPosition()->x);
+			ImGui::SameLine();
+			ImGui::InputFloat("Y", &cam.GetPosition()->y);
+			ImGui::SameLine();
+			ImGui::InputFloat("Z", &cam.GetPosition()->z);
+			ImGui::PopItemWidth();
+			ImGui::Text(("X: " + std::to_string((int)((cam.GetPosition()->x / chunkSize) / scale.x))).c_str());
+			ImGui::SameLine();
+			ImGui::Text(("Y: " + std::to_string((int)((cam.GetPosition()->y / chunkSize) / scale.y))).c_str());
+			ImGui::SameLine();
+			ImGui::Text(("Z: " + std::to_string((int)((cam.GetPosition()->z / chunkSize) / scale.z))).c_str());
+
+		}
+
 		ImGui::End();
 		ImGui::SFML::Render(window);
 
 		window.display();
+		//std::cout << "Cam Pos: " << cam.GetPosition().x << ", " << cam.GetPosition().y << std::endl;
 	}
 	
 	ImGui::SFML::Shutdown();

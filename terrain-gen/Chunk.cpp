@@ -1,6 +1,6 @@
 #include "Chunk.h"
 
-Chunk::Chunk(sf::Vector2f position, int size, Material* mat)
+Chunk::Chunk(sf::Vector2i position, int size, Material* mat)
 {
 	this->position = position;
 	this->mat = mat;
@@ -45,9 +45,9 @@ void Chunk::Update(int seed, int noiseType, float amplitude)
 			for (int x = 0; x < chunkSize; x++) {
 				double z = noise.GetNoise(x + position.x, y + position.y);
 				verts.push_back({
-					glm::vec3(x + position.x, z * amplitude, y + position.y),
-					glm::vec3(x + position.x, z * amplitude, y + position.y)
-					});
+					glm::vec3(x + position.x, std::floor(z * amplitude), y + position.y),
+					glm::vec3(x + position.x, std::floor(z * amplitude), y + position.y)
+				});
 			}
 		}
 
@@ -63,4 +63,9 @@ Mesh * Chunk::getMesh()
 Material * Chunk::getMat()
 {
 	return mat;
+}
+
+sf::Vector2i Chunk::getChunkPos()
+{
+	return position / chunkSize;
 }

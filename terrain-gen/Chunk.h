@@ -6,12 +6,13 @@
 
 class Chunk {
 public:
-	Chunk(sf::Vector2f position, int size, Material* mat);
+	Chunk(sf::Vector2i position, int size, Material* mat);
 	~Chunk();
 	void Update(int seed, int noiseType, float amplitude);
 	Mesh* getMesh();
 	Material* getMat();
-	sf::Vector2f position;
+	sf::Vector2i getChunkPos();
+	sf::Vector2i position;
 
 private:
 	FastNoise noise;

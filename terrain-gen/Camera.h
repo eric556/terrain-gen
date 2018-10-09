@@ -16,7 +16,7 @@ public:
 	void MoveUpward(float distance);
 	void StrafeRight(float distance);
 	glm::mat4 GetViewMatrix();
-	glm::vec3 GetPosition();
+	glm::vec3* GetPosition();
 
 private:
 	glm::vec3 m_ViewDir;

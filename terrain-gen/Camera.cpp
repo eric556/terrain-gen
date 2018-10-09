@@ -60,7 +60,7 @@ glm::mat4 Camera::GetViewMatrix()
 	return glm::lookAt(m_Position, viewPoint, m_UpVec);
 }
 
-glm::vec3 Camera::GetPosition()
+glm::vec3* Camera::GetPosition()
 {
-	return m_Position;
+	return &m_Position;
 }
